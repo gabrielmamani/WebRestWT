@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WISETRACKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Seguimiento">
+          <Key>
+            <PropertyRef Name="CodSeguimiento" />
+          </Key>
+          <Property Name="CodSeguimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="FechaFin" Type="datetime" />
+          <Property Name="NIT" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IMEI" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="NroPlaca" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UsuaReg" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FechaReg" Type="datetime" Nullable="false" />
+          <Property Name="UsuaModif" Type="nvarchar" MaxLength="20" />
+          <Property Name="FechaModif" Type="datetime" />
+          <Property Name="estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="TramaTemp1">
+          <Key>
+            <PropertyRef Name="Nro" />
+          </Key>
+          <Property Name="Nro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="EstadoGPS" Type="int" />
+          <Property Name="EstadoMotor" Type="int" />
+          <Property Name="Velocidad" Type="float" />
+          <Property Name="Latitud" Type="float" />
+          <Property Name="Longitud" Type="float" />
+          <Property Name="FechaGPS" Type="datetime" />
+          <Property Name="NroPlaca" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+          <Property Name="Asimut" Type="float" />
+          <Property Name="NIT" Type="nvarchar" MaxLength="15" />
+          <Property Name="IDButton" Type="varchar" MaxLength="30" />
+          <Property Name="Kilometraje" Type="float" />
+          <Property Name="Temperatura" Type="float" />
+          <Property Name="VoltajeBateria" Type="float" />
+          <Property Name="EstadoPuerta" Type="bit" />
+          <Property Name="tipov" Type="int" />
+          <Property Name="IMEI" Type="varchar" MaxLength="50" />
+          <Property Name="direcciones" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Vehiculo">
+          <Key>
+            <PropertyRef Name="NroPlaca" />
+          </Key>
+          <Property Name="NroPlaca" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Patente" Type="varchar" MaxLength="50" />
+          <Property Name="NroChasis" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="NroMotor" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Modelo" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CodTipoV" Type="int" Nullable="false" />
+          <Property Name="CodMarca" Type="int" Nullable="false" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="UsuaReg" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FechaReg" Type="datetime" Nullable="false" />
+          <Property Name="UsuaModif" Type="nvarchar" MaxLength="20" />
+          <Property Name="FechaModif" Type="datetime" />
+          <Property Name="Año" Type="int" />
+        </EntityType>
+        <Association Name="FK_Seguimiento_Vehiculo">
+          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="1" />
+          <End Role="Seguimiento" Type="Self.Seguimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="NroPlaca" />
+            </Principal>
+            <Dependent Role="Seguimiento">
+              <PropertyRef Name="NroPlaca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WISETRACKModelStoreContainer">
+          <EntitySet Name="Seguimiento" EntityType="Self.Seguimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TramaTemp1" EntityType="Self.TramaTemp1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehiculo" EntityType="Self.Vehiculo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Seguimiento_Vehiculo" Association="Self.FK_Seguimiento_Vehiculo">
+            <End Role="Vehiculo" EntitySet="Vehiculo" />
+            <End Role="Seguimiento" EntitySet="Seguimiento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WISETRACKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TramaTemp1">
+          <Key>
+            <PropertyRef Name="Nro" />
+          </Key>
+          <Property Name="Nro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="EstadoGPS" Type="Int32" />
+          <Property Name="EstadoMotor" Type="Int32" />
+          <Property Name="Velocidad" Type="Double" />
+          <Property Name="Latitud" Type="Double" />
+          <Property Name="Longitud" Type="Double" />
+          <Property Name="FechaGPS" Type="DateTime" Precision="3" />
+          <Property Name="NroPlaca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Asimut" Type="Double" />
+          <Property Name="NIT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IDButton" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Kilometraje" Type="Double" />
+          <Property Name="Temperatura" Type="Double" />
+          <Property Name="VoltajeBateria" Type="Double" />
+          <Property Name="EstadoPuerta" Type="Boolean" />
+          <Property Name="tipov" Type="Int32" />
+          <Property Name="IMEI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direcciones" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="WISETRACKEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TramaTemp1" EntityType="Self.TramaTemp1" />
+          <EntitySet Name="Seguimiento" EntityType="WISETRACKModel.Seguimiento" />
+          <EntitySet Name="Vehiculo" EntityType="WISETRACKModel.Vehiculo" />
+          <AssociationSet Name="FK_Seguimiento_Vehiculo" Association="WISETRACKModel.FK_Seguimiento_Vehiculo">
+            <End Role="Vehiculo" EntitySet="Vehiculo" />
+            <End Role="Seguimiento" EntitySet="Seguimiento" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Seguimiento">
+          <Key>
+            <PropertyRef Name="CodSeguimiento" />
+          </Key>
+          <Property Name="CodSeguimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFin" Type="DateTime" Precision="3" />
+          <Property Name="NIT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IMEI" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="NroPlaca" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UsuaReg" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FechaReg" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuaModif" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FechaModif" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="Boolean" />
+          <NavigationProperty Name="Vehiculo" Relationship="WISETRACKModel.FK_Seguimiento_Vehiculo" FromRole="Seguimiento" ToRole="Vehiculo" />
+        </EntityType>
+        <EntityType Name="Vehiculo">
+          <Key>
+            <PropertyRef Name="NroPlaca" />
+          </Key>
+          <Property Name="NroPlaca" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Patente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NroChasis" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="NroMotor" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Modelo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CodTipoV" Type="Int32" Nullable="false" />
+          <Property Name="CodMarca" Type="Int32" Nullable="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="UsuaReg" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FechaReg" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuaModif" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FechaModif" Type="DateTime" Precision="3" />
+          <Property Name="Año" Type="Int32" />
+          <NavigationProperty Name="Seguimiento" Relationship="WISETRACKModel.FK_Seguimiento_Vehiculo" FromRole="Vehiculo" ToRole="Seguimiento" />
+        </EntityType>
+        <Association Name="FK_Seguimiento_Vehiculo">
+          <End Type="WISETRACKModel.Vehiculo" Role="Vehiculo" Multiplicity="1" />
+          <End Type="WISETRACKModel.Seguimiento" Role="Seguimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="NroPlaca" />
+            </Principal>
+            <Dependent Role="Seguimiento">
+              <PropertyRef Name="NroPlaca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WISETRACKModelStoreContainer" CdmEntityContainer="WISETRACKEntities">
+          <EntitySetMapping Name="TramaTemp1">
+            <EntityTypeMapping TypeName="WISETRACKModel.TramaTemp1">
+              <MappingFragment StoreEntitySet="TramaTemp1">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EstadoGPS" ColumnName="EstadoGPS" />
+                <ScalarProperty Name="EstadoMotor" ColumnName="EstadoMotor" />
+                <ScalarProperty Name="Velocidad" ColumnName="Velocidad" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="FechaGPS" ColumnName="FechaGPS" />
+                <ScalarProperty Name="NroPlaca" ColumnName="NroPlaca" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Asimut" ColumnName="Asimut" />
+                <ScalarProperty Name="NIT" ColumnName="NIT" />
+                <ScalarProperty Name="IDButton" ColumnName="IDButton" />
+                <ScalarProperty Name="Kilometraje" ColumnName="Kilometraje" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="VoltajeBateria" ColumnName="VoltajeBateria" />
+                <ScalarProperty Name="EstadoPuerta" ColumnName="EstadoPuerta" />
+                <ScalarProperty Name="tipov" ColumnName="tipov" />
+                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+                <ScalarProperty Name="direcciones" ColumnName="direcciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seguimiento">
+            <EntityTypeMapping TypeName="WISETRACKModel.Seguimiento">
+              <MappingFragment StoreEntitySet="Seguimiento">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="FechaModif" ColumnName="FechaModif" />
+                <ScalarProperty Name="UsuaModif" ColumnName="UsuaModif" />
+                <ScalarProperty Name="FechaReg" ColumnName="FechaReg" />
+                <ScalarProperty Name="UsuaReg" ColumnName="UsuaReg" />
+                <ScalarProperty Name="NroPlaca" ColumnName="NroPlaca" />
+                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+                <ScalarProperty Name="NIT" ColumnName="NIT" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="CodSeguimiento" ColumnName="CodSeguimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehiculo">
+            <EntityTypeMapping TypeName="WISETRACKModel.Vehiculo">
+              <MappingFragment StoreEntitySet="Vehiculo">
+                <ScalarProperty Name="Año" ColumnName="Año" />
+                <ScalarProperty Name="FechaModif" ColumnName="FechaModif" />
+                <ScalarProperty Name="UsuaModif" ColumnName="UsuaModif" />
+                <ScalarProperty Name="FechaReg" ColumnName="FechaReg" />
+                <ScalarProperty Name="UsuaReg" ColumnName="UsuaReg" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="CodMarca" ColumnName="CodMarca" />
+                <ScalarProperty Name="CodTipoV" ColumnName="CodTipoV" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="NroMotor" ColumnName="NroMotor" />
+                <ScalarProperty Name="NroChasis" ColumnName="NroChasis" />
+                <ScalarProperty Name="Patente" ColumnName="Patente" />
+                <ScalarProperty Name="NroPlaca" ColumnName="NroPlaca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
